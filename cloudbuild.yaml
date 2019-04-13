@@ -1,0 +1,18 @@
+# Used by Cloud Build to pull, replace, and deploy our your-function-name
+# This function pulls files from a 3rd party FTP site, writes the file to GCS, then deletes the file from remote host.
+
+steps:
+# Start Line
+- name: 'ubuntu'
+  args: ['echo', 'Beginning deployment steps for cloudfunction-ftp-xxx-retr']
+  
+# Deploy the Cloud Function/Overwrite
+- name: 'gcr.io/cloud-builders/gcloud'
+  args: ['functions', 'deploy', 'your-function-name', '--trigger-bucket', 'your-bucket-name',
+         '--runtime', 'python37',
+         '--timeout', '540',
+         '--entry-point', 'getfiles',
+  ]
+# Exit Line
+- name: 'ubuntu'
+  args: ['echo', 'Completed deployment steps for your-function-name']
